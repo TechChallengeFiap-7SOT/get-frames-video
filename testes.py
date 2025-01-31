@@ -44,10 +44,8 @@ def createZipFromPath(pathName: str, zipName: str):
     shutil.make_archive(zip_destino, 'zip', diretorio)
     return zip_destino
 
-def generateRandomPathName(videoName):
-
-    for strings in [".mp4", "/", "."]:
-        videoName = videoName.replace(strings, "")
+def generateRandomPathName(videoPath):
+    videoName, extensao = os.path.splitext(os.path.basename(videoPath))
     agora = datetime.now()
     data_str = agora.strftime("%Y%m%d%H%M%S%f")  # Remove traços, pontos e espaços
     nome_pasta = f"{videoName}_{data_str}"  # Remove hífens
@@ -55,7 +53,7 @@ def generateRandomPathName(videoName):
     return nome_pasta
 
 
-video = "./telescopio.mp4"
+video = "./videos/telescopio.mp4"
 
 
 pathName = generateRandomPathName(video)
