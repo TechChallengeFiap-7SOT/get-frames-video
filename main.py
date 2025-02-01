@@ -1,5 +1,12 @@
-from src.core.useCases.videoUseCases import VideoUseCases
+
+from src.external.integrations.videoIntegrations import videoIntegrations, videoIntegrationsMock
+
+from src.adapters.controller.videoController import videoController
 
 if __name__ == "__main__":
-    x = VideoUseCases.generatePathNameFromFile(r"C:\Users\Viniciuss\Desktop\Projetos pós graduação\PosGraduacao\hakatom - projeto final\get-frames-video\src\external")
-    print(x)
+    videoIntegrations = videoIntegrations()
+    videoIntegrationsMock = videoIntegrationsMock()
+
+    zipTah = videoController.getZipFramesFromVideo("1", videoIntegrationsMock)
+
+    print("Fim do programa", zipTah)

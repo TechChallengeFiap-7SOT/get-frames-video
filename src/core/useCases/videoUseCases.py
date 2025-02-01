@@ -3,6 +3,7 @@ from src.core.entites.Video import Video
 from src.pkg.interfaces.gatewayInterfaces import videoGatewayInterface
 
 import os
+import sys
 import subprocess
 from pathlib import Path
 import shutil
@@ -18,7 +19,8 @@ class VideoUseCases:
     @staticmethod 
     def getFrames( videoPath: str, videoGateway: videoGatewayInterface):
         framesPathName = VideoUseCases.generatePathNameFromFile(videoPath)
-        framesPath = videoGateway.getFrames(videoPath, framesPathName)
+        framesPathCreated = VideoUseCases.createPath(framesPathName)
+        framesPath = videoGateway.getFrames(videoPath, framesPathCreated)
         return framesPath
 
 
@@ -32,15 +34,30 @@ class VideoUseCases:
     @staticmethod 
     def deletePathAndFiles(pathName: str): 
         path = pathName
-        shutil.rmtree(path, ignore_errors=True)  # `ignore_errors=True` evita erros se o diretório não existir
-        return path
+        try:
+            shutil.rmtree(path, ignore_errors=True)  # `ignore_errors=True` evita erros se o diretório não existir
+            return True
+        except:
+            return False
+    
+    @staticmethod 
+    def deleteFile(filePath: str): 
+        file_path = Path(filePath)
+        # Verifica se o arquivo existe antes de deletar
+        if file_path.exists():
+            file_path.unlink()
+            return True
+        else:
+            return False
     
     @staticmethod 
     def createZipFromPath(framesPath: str, zipName: str):
-        workDir = os.path.dirname(os.path.abspath(__file__))
+        # workDir = os.path.dirname(os.path.abspath(__file__))
+        workDir = os.path.dirname(os.path.abspath(sys.argv[0]))
+        # zipName = VideoUseCases.generatePathNameFromFile(framesPath)
         zipPath = os.path.join(workDir, "tempZip/{}".format(zipName))
-        shutil.make_archive(zipPath, 'zip', framesPath)
-        return zipPath
+        zipPathFinal = shutil.make_archive(zipPath, 'zip', framesPath)
+        return zipPathFinal
 
     @staticmethod 
     def generatePathNameFromFile(path: str):

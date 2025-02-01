@@ -1,7 +1,7 @@
 from src.pkg.interfaces.gatewayInterfaces import videoGatewayInterface
 from src.pkg.interfaces.externalInterfaces import videoExternalInterface
 
-class videoGateway(videoGatewayInterface):
+class VideoGateway(videoGatewayInterface):
     def __init__(self, videoExternal: videoExternalInterface):
         super().__init__()
 
