@@ -6,11 +6,11 @@ from src.core.useCases.videoUseCases import VideoUseCases
 class videoController():
 
     @staticmethod
-    def getZipFramesFromVideo(videoId: str, videoExternal: videoExternalInterface):
+    def getZipFramesFromVideo(videoUrl: str, videoExternal: videoExternalInterface):
 
         videoGateway = VideoGateway(videoExternal)
 
-        videoPath = VideoUseCases.getVideo(videoId, videoGateway)
+        videoPath = VideoUseCases.getVideo(videoUrl, videoGateway)
 
         framesListPath = VideoUseCases.getFrames(videoPath, videoGateway)
 
@@ -23,6 +23,10 @@ class videoController():
         #Adicionar presenter e DTO
 
         return zipPath
+    
+    @staticmethod
+    def deleteFile(filePath: str):
+        return VideoUseCases.deleteFile(filePath)
     
 
 # pathName = generateRandomPathName(video)

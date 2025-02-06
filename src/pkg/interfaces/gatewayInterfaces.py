@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class videoGatewayInterface(ABC):
     @abstractmethod
-    def getVideo(self, videoId: str):
+    def getVideo(self, videoUrl: str):
         pass
 
     @abstractmethod

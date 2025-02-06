@@ -8,9 +8,9 @@ class videoIntegrations(videoExternalInterface):
     def __init__(self):
         super().__init__()
 
-    def downloadVideo(self, videoId: str):
+    def downloadVideo(self, videoUrl: str):
         #requisitar url para baixar o vdieo, de uma api externa
-        videoUrl = requests.get(f'http://api.com/video/{videoId}')
+        # videoUrl = requests.get(f'videoUrl')
         #baixar o video
         video = requests.get(videoUrl)
         videoName = "Um_nome" #Verificar se vou conseguir o nome do arquivo

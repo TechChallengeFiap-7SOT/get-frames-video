@@ -1,65 +1,18 @@
-#Puxar da fila o vídeo
-#processar o vídeo e transformar em frames
-#colcoar esses frames em um zip
-#apagar frames fora do zip
-#Fazer upload do zip
-#Apagar zip local
-#Chamar a api principal
+import requests
 
+# video = "https://s3.amazonaws.com/br.com.fiap.soat7.grupo18.videoapi.uploads/abc%40server.com/sample-video.mp4-20250205223719367?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDoaCXVzLXdlc3QtMiJIMEYCIQD8erHj1gGTqyEQy4Sb1SgdrW6pHHn5Gt%2ByYF2cDaQkmgIhAPuiBTWZXsCFTZfrfyAT9bRneK5zFgRcr%2FrRkF7axlEPKqsCCFMQAhoMMjY0ODc2NTEzMzM5IgxOO1kYZy1psw7DIrIqiAJ2sQZHJrJrVlInWR1ZS%2BaVeioLDjcuFmCo2gdVZf5iQs2RdvYrtHj%2BG22%2BXxGv4XdheRQDl1fePUpDjGlIS4BWgHJ%2BK4aFibPshPThFWX11%2FMuMmKXg%2BQMIO4wXxrcHGzqzKIHAGEnvmFMpqCsBt8hdcJj%2FbO4Kcen1Ej6jm6n023RkPMpTkJ7JX11nelW3D0KlXrmXWLV5j1Z2gbW6kOta5UfWGz68pRlD2BD7ezzuLKejTnxnTAS019aICs9oMX0q4xxtQvQDbPYlDnTIe8LL6XfgVai%2F%2F%2BmdjovK25NyKoalPUeQczlwWnreDLvAQdmiipPik81%2FcuTsxNcvUwhZIBMRoa0Km0wzZ2QvQY6nAHn4HvpeVdosVIK7pTfbX6864AGwBD9XxLOEo%2F%2B7DN94EinrTBTRucpMMK4W54uRW2420yCk0oil9F7VkEIBO092RIkWwVC7EIOx%2F9XPPAH%2BoRT0GqlEqxAocTPSY57okjfp76jMXxl0MYPsw1rHsF1DmKVyuz%2BgaSLAcQn6qUSama%2BhoPzzp4LPSrGtIg8jtNimDeU6MA1pWOy%2FZ0%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250206T013724Z&X-Amz-SignedHeaders=host&X-Amz-Credential=ASIAT3K663A5ZWBDJUU6%2F20250206%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Expires=120&X-Amz-Signature=b213493cc46d681f367bcb9b8ffabee2bfc1d437ac1d96791d564782b23e7223"
+video = "https://fial-video-store.s3.us-east-1.amazonaws.com/4769538-uhd_4096_2160_25fps.mp4?response-content-disposition=inline&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDoaCXVzLWVhc3QtMSJHMEUCIQC4kucdvJObGBGyFoS9aqSfbCGJEhnIidLU2rHy6Y023AIgVG85BqHqInndWpQp2BQQ6DuS9TEDpfA5j4mSgzUrLBwq3gMIUxABGgwzNDk2ODY5Njg1ODkiDDIaWjtGKmSsrxvvPyq7AxPYoKc4B7VpVBT%2B9M1CPCVoHHcQ7bPhLK36IpmPu%2B1l0wYyJK6E65XEeq1EeQ25tFHEWtkq6GQeCtgK%2B1od442foeqjoguY3XmE8MdBQ6BVETPvcJ6UQas3yBpRuUyzVWLTxY4EJFt3vM6wYFlP417OqaNxYZ1eoJpDEvkdnIIydO%2BV7GNJXJg7%2B81qOKW28t2k%2BTpZfx9jqPUkBOYXWYypD00ui5xQFTFaQg7yw%2FMbDhQ5B%2FKIH%2FmtbK0N2%2BVXgHDhfBVBeAr%2Bv4jKW8rXW5m0L%2B98mmnFvZYHOsHI3MCdtP7WLwLHDGXN8JkdoVeEmLhT7l3NqtVCKCpZS%2FHDHw3lw%2F%2FpEIML3BQYJeb7VZzCqFjryn%2BIOCNpBxNxqj4fxqDYKg5qZFCEDE0OBHnM91%2FSX6K9Bb7c2pXsL2ZPEb%2Fj9cbXrKeluu96Yy9AN4P%2FXoaCjmT3O2iShkR1Oekd1xjofCTqb8RRLZt2EgCnpeKZEAZiOp0q3SFuHHFqmvkz1XXtZD5PgVtUEOs3yfqpGVEHOheyZh9%2BOZ%2BXenzHxXrJjPSNa6%2BrFLOoryR1TQ%2B1xiVCR%2BOPyYanzGzSMMWZkL0GOrcCkJY6dhSQ%2BncZLJWCWaJahyrPQDIBK5PFf1jzVGiJu2ORmR9n1BwjyCj6o%2Bh3tV9LZTXgkIM9lywBsJWiTBCOB%2BNINrZoZxVvwHhu3qVTD6hsq3J24tg07hVH42fuA9Yuwmu4z6sg3Kpzp6RvM9sPzX%2ByGgHmpMPGKeq10%2FTwJYo8w0OejxDenII78OPJGnbPhVWuwl8O6KiNFHouYLvO8wPLW5CwlaNxOg9VcxWN6pQZrFEnUj5O7SSuVZgJzEILaOEIn3Dpt91aopk4SN2zjv8lz8mx6cfxRc4M7CzzPe1k191AKioCznFWr2GhsXo%2FV5KcxvOKi%2BeHgsvCT6ehRYUZ7NncCO6hER3AunANnfZbUc71nviblCpE3OGk4pMpF0HABsDnUPYfSB22UTz0S3sezKu9rEY%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAVC2XXWEGVMWOJ2WL%2F20250206%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250206T013831Z&X-Amz-Expires=600&X-Amz-SignedHeaders=host&X-Amz-Signature=0db589e65d82c9669207fcd254508a759fbadbd713433036839f9a9c6ff3cb7c"
+#Baixar esse video
 
-import os
-import subprocess
-from pathlib import Path
-import shutil
-import uuid
-from datetime import datetime
+video = requests.get(video)
 
+videoName = "Um_nome2" #Verificar se vou conseguir o nome do arquivo
 
+#salvar o video
 
-def getFrames(videoPath, pathToSaveFrames):
-    command = ["ffmpeg", "-i", videoPath, "-vf", "fps=1", "{}/frame_%08d.png".format(pathToSaveFrames)]
-    subprocess.call(command,shell=True)
-    return pathToSaveFrames
+videoPathToSave = f'./videos/{videoName}.mp4'
 
-def createPath(pathName: str):
-    diretorio = Path(pathName)
-    diretorio.mkdir(parents=True, exist_ok=True)
-    print(f"Diretório '{diretorio}' criado com sucesso!")
-    return diretorio
+with open(videoPathToSave, 'wb') as f:
+    f.write(video.content)
 
-def deletePathAndFiles(pathName: str): 
-    diretorio = pathName
-    shutil.rmtree(diretorio, ignore_errors=True)  # `ignore_errors=True` evita erros se o diretório não existir
-    print(f"Diretório '{diretorio}' e seu conteúdo foram removidos!")
-    return diretorio
-
-def createZipFromPath(pathName: str, zipName: str):
-    diretorio = pathName
-
-    # Obtém o caminho absoluto do diretório do script
-    diretorio_projeto = os.path.dirname(os.path.abspath(__file__))
-    print(diretorio_projeto)
-    zip_destino = os.path.join(diretorio_projeto, "tempZip/{}".format(zipName))
-    print(zip_destino)
-    shutil.make_archive(zip_destino, 'zip', diretorio)
-    return zip_destino
-
-def generateRandomPathName(videoPath):
-    videoName, extensao = os.path.splitext(os.path.basename(videoPath))
-    agora = datetime.now()
-    data_str = agora.strftime("%Y%m%d%H%M%S%f")  # Remove traços, pontos e espaços
-    nome_pasta = f"{videoName}_{data_str}"  # Remove hífens
-    print(nome_pasta)
-    return nome_pasta
-
-
-video = "./videos/telescopio.mp4"
-
-
-pathName = generateRandomPathName(video)
-folderPath = createPath(pathName)
-framelistPath = getFrames(video, folderPath)
-zipPath = createZipFromPath(framelistPath, pathName)
-deletedPath = deletePathAndFiles(framelistPath)
-
-print("Finalizado! O zip está disponível em: {}".format(zipPath))
+#retorna diretorio do arquivo do video
