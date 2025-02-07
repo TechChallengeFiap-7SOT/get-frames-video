@@ -8,7 +8,7 @@ from src.adapters.controller.videoController import videoController
 import json
 
 sqs = boto3.client('sqs', region_name='us-east-1')
-queue_url = 'https://sqs.us-east-1.amazonaws.com/349686968589/video-processing' 
+queue_url = '' 
 videoIntegrations = videoIntegrations()
 videoIntegrationsMock = videoIntegrationsMock()
 

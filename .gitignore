@@ -1,2 +1,4 @@
-./tempZip
-./videos
+/tempzip/*
+/videos/*
+.env
+/venv
