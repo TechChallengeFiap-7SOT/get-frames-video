@@ -5,11 +5,15 @@ from src.adapters.controller.videoController import videoController
 
 import time
 
+import requests
+
 videoUrl = ""
 
 if __name__ == "__main__":
+
     videoIntegrations = videoIntegrations()
     videoIntegrationsMock = videoIntegrationsMock()
+
 
     zipTah = videoController.getZipFramesFromVideo(videoUrl, videoIntegrationsMock)
 
@@ -18,3 +22,10 @@ if __name__ == "__main__":
     # deleteFile = videoController.deleteFile(zipTah)
 
     print("Fim do programa", zipTah)
+
+
+    url = "http://127.0.0.1:5000/upload"
+    files = {"file": open(zipTah, "rb")}
+    response = requests.post(url, files=files)
+
+    print(response.json())
