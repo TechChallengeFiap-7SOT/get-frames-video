@@ -65,10 +65,19 @@ def receive_and_delete_message():
         print("Segue o zip!", zipPath)
 
         url = URL_TO_SEND_ZIP
+        print("Enviando zip para o endpoint", url)
         files = {"file": open(zipPath, "rb")}
         response = requests.post(url, files=files)
 
+        print(response.status_code)
+
 if __name__ == "__main__":
+
+    #criar uma pasta chamada videos na origem
+    pasta = "./videos"
+    if not os.path.exists(pasta):
+        os.makedirs(pasta)
+
     while True:    
         receive_and_delete_message()
-        time.sleep(10) 
+        # time.sleep(10) 
