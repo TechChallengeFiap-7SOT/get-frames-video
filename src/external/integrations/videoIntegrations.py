@@ -13,9 +13,9 @@ class videoIntegrations(videoExternalInterface):
         # videoUrl = requests.get(f'videoUrl')
         #baixar o video
         video = requests.get(videoUrl)
-        # videoName = "Um_nome" #Verificar se vou conseguir o nome do arquivo
+        videoName = "Um_nome" #Verificar se vou conseguir o nome do arquivo
         #salvar o video 
-        videoPathToSave = f'./videos/{video}.mp4'
+        videoPathToSave = f'./videos/{videoName}.mp4'
         with open(videoPathToSave, 'wb') as f:
             f.write(video.content)
         #retorna diretorio do arquivo do video

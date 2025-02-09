@@ -24,7 +24,8 @@ if __name__ == "__main__":
     print("Fim do programa", zipTah)
 
 
-    url = "http://127.0.0.1:5000/upload"
+    url = "https://feff-2804-14c-bf28-335d-4c30-8a85-ff7b-6542.ngrok-free.app/upload"
+    # url = "http://127.0.0.1:5000/upload"
     files = {"file": open(zipTah, "rb")}
     response = requests.post(url, files=files)
 

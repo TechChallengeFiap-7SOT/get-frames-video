@@ -2,3 +2,4 @@
 /videos/*
 .env
 /venv
+./testes.py
