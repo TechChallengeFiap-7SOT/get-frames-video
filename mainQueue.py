@@ -71,6 +71,10 @@ def receive_and_delete_message():
 
         print(response.status_code)
 
+        #deletando o zip que foi criado
+        print("Deletando o zip")
+        os.remove(zipPath)
+
 if __name__ == "__main__":
 
     #criar uma pasta chamada videos na origem
