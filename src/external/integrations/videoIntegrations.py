@@ -22,8 +22,9 @@ class videoIntegrations(videoExternalInterface):
         return videoPathToSave #Path do vídeo que foi salvo!
         
     def getFrames(self, videoPath: str, pathToSaveFrames: str):
-        command = ["ffmpeg", "-i", videoPath, "-vf", "fps=1", "{}/frame_%08d.png".format(pathToSaveFrames)]
-        subprocess.call(command,shell=True)
+        command = ["ffmpeg", "-i", videoPath, "-vf", "fps=1,scale=1280:-1", "{}/frame_%08d.png".format(pathToSaveFrames)]
+        # subprocess.call(command,shell=True)
+        subprocess.run(command)
         return pathToSaveFrames
 
 class videoIntegrationsMock(videoExternalInterface):
