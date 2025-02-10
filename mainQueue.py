@@ -17,6 +17,7 @@ AWS_ACCESS_KEY_ID= os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN")
 URL_TO_SEND_ZIP = os.getenv("URL_TO_SEND_ZIP")
+VIDEO_API_AUTH_TOKEN = os.getenv("VIDEO_API_AUTH_TOKEN")
 
 sqs = boto3.client('sqs', 
             region_name='us-east-1',
@@ -80,7 +81,7 @@ def receive_and_delete_message():
         headers = {
             "accept": "application/json",
             "USER": "abc@server.com",
-             "Authorization Basic": "YWRtaW46YWRtaW4="
+             "Authorization Basic": VIDEO_API_AUTH_TOKEN
         }
         
         with open(zipPath, "rb") as f:

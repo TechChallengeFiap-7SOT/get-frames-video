@@ -11,6 +11,7 @@ import os
 load_dotenv()
 
 URL_TO_GET_VIDEO = os.getenv("URL_TO_GET_VIDEO")
+VIDEO_API_AUTH_TOKEN = os.getenv("VIDEO_API_AUTH_TOKEN")
 
 class videoIntegrations(videoExternalInterface):
     def __init__(self):
@@ -20,7 +21,7 @@ class videoIntegrations(videoExternalInterface):
         #requisitar url para baixar o vdieo, de uma api externa
         # videoId = requests.get(f'videoId')
         #baixar o video
-        header = { "Authorization Basic": "YWRtaW46YWRtaW4="}
+        header = { "Authorization Basic": VIDEO_API_AUTH_TOKEN}
         request = requests.get("{}{}".format(URL_TO_GET_VIDEO,videoId), headers=header) #localhost:8080/video/s3-url/67a6aee8b6df012130001fe1
         
         videoURL = request.json()
