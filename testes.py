@@ -1,17 +1,15 @@
+import os
 import requests
+def send_simple_message():
+  	return requests.post(
+  		"https://api.mailgun.net/v3/sandbox1ce19323d1fa4c62bb4282e44d334269.mailgun.org/messages",
+  		auth=("api", "af5d23a3d835ae8f3f60a8157f9c8962-1654a412-56055b24"),
+  		data={"from": "Mailgun Sandbox <postmaster@sandbox1ce19323d1fa4c62bb4282e44d334269.mailgun.org>",
+			"to": "Vinicius deAndrade Piovezan <vinicius.piovezan07@gmail.com>",
+  			"subject": "Hello Vinicius deAndrade Piovezan",
+  			"text": "Congratulations Vinicius deAndrade Piovezan, you just sent an email with Mailgun! You are truly awesome!"})
+   
+x = send_simple_message()
 
-video = ""
-#Baixar esse video
-
-video = requests.get(video)
-
-videoName = "Um_nome2" #Verificar se vou conseguir o nome do arquivo
-
-#salvar o video
-
-videoPathToSave = f'./videos/{videoName}.mp4'
-
-with open(videoPathToSave, 'wb') as f:
-    f.write(video.content)
-
-#retorna diretorio do arquivo do video
+print(x.text)
+print(x.status_code)

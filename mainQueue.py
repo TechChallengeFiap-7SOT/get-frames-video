@@ -80,9 +80,9 @@ def receive_and_delete_message():
         headers = {
             "accept": "application/json",
             "USER": "abc@server.com",
-            # "Content-Type": "multipart/form-data"
+             "Authorization Basic": "YWRtaW46YWRtaW4="
         }
-
+        
         with open(zipPath, "rb") as f:
             files = {
                 "zip": (fileName, f, "application/zip")  # Pode ser application/zip ou application/x-zip-compressed
