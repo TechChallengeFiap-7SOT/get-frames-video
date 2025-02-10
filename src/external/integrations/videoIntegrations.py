@@ -4,16 +4,26 @@ import requests
 import subprocess
 import shutil
 
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+
+URL_TO_GET_VIDEO = os.getenv("URL_TO_GET_VIDEO")
+
 class videoIntegrations(videoExternalInterface):
     def __init__(self):
         super().__init__()
 
-    def downloadVideo(self, videoUrl: str):
+    def downloadVideo(self, videoId: str):
         #requisitar url para baixar o vdieo, de uma api externa
-        # videoUrl = requests.get(f'videoUrl')
+        # videoId = requests.get(f'videoId')
         #baixar o video
-        video = requests.get(videoUrl)
-        videoName = "Um_nome" #Verificar se vou conseguir o nome do arquivo
+        
+        video = requests.get("{}{}".format(URL_TO_GET_VIDEO,videoId)) #localhost:8080/video/s3-url/67a6aee8b6df012130001fe1
+
+        videoName = "frames" #Verificar se vou conseguir o nome do arquivo
         #salvar o video 
         videoPathToSave = f'./videos/{videoName}.mp4'
         with open(videoPathToSave, 'wb') as f:

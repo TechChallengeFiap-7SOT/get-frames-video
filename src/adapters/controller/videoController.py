@@ -6,11 +6,11 @@ from src.core.useCases.videoUseCases import VideoUseCases
 class videoController():
 
     @staticmethod
-    def getZipFramesFromVideo(videoUrl: str, videoExternal: videoExternalInterface):
+    def getZipFramesFromVideo(videoId: str, videoExternal: videoExternalInterface):
 
         videoGateway = VideoGateway(videoExternal)
 
-        videoPath = VideoUseCases.getVideo(videoUrl, videoGateway)
+        videoPath = VideoUseCases.getVideo(videoId, videoGateway)
 
         framesListPath = VideoUseCases.getFrames(videoPath, videoGateway)
 

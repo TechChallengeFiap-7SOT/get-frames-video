@@ -7,7 +7,7 @@ import time
 
 import requests
 
-videoUrl = ""
+videoId = ""
 
 if __name__ == "__main__":
 
@@ -15,7 +15,7 @@ if __name__ == "__main__":
     videoIntegrationsMock = videoIntegrationsMock()
 
 
-    zipTah = videoController.getZipFramesFromVideo(videoUrl, videoIntegrationsMock)
+    zipTah = videoController.getZipFramesFromVideo(videoId, videoIntegrationsMock)
 
     # time.sleep(2)
 

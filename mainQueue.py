@@ -12,8 +12,6 @@ import requests
 
 load_dotenv()
 
-my_var = os.getenv("MY_VARIABLE")
-
 QUEUE_URL = os.getenv("QUEUE_URL")
 AWS_ACCESS_KEY_ID= os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
@@ -29,9 +27,9 @@ sqs = boto3.client('sqs',
 videoIntegrations = videoIntegrations()
 videoIntegrationsMock = videoIntegrationsMock()
 
-def getZip(videoUrl: str):
+def getZip(videoId: str):
     
-    zipTah = videoController.getZipFramesFromVideo(videoUrl, videoIntegrations)
+    zipTah = videoController.getZipFramesFromVideo(videoId, videoIntegrations)
 
     return zipTah
 

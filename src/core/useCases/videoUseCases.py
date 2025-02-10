@@ -12,8 +12,8 @@ from datetime import datetime
 class VideoUseCases:
    
     @staticmethod
-    def getVideo(videoUrl: str, videoGateway: videoGatewayInterface):
-        videoPath = videoGateway.getVideo(videoUrl)
+    def getVideo(videoId: str, videoGateway: videoGatewayInterface):
+        videoPath = videoGateway.getVideo(videoId)
         return videoPath
     
     @staticmethod 
