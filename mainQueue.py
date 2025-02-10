@@ -63,14 +63,42 @@ def receive_and_delete_message():
         print("Segue o zip!", zipPath)
 
         url = URL_TO_SEND_ZIP
-        print("Enviando zip para o endpoint", url)
-        files = {"zip": open(zipPath, "rb")}
-        response = requests.post("{}/{}".format(url,videoId), files=files)
+        print("Enviando zip para o endpoint", "{}/{}".format(url,videoId))
+        
+        #Enviar um form data com o zip
+
+        fileName = zipPath.split("\\")[-1]
+
+        # files = {"zip": open(zipPath, "rb")}
+
+        # files = {
+        #     "zip": (fileName, open(zipPath, "rb"), "application/x-zip-compressed")
+        # }
+
+
+
+        headers = {
+            "accept": "application/json",
+            "USER": "abc@server.com",
+            # "Content-Type": "multipart/form-data"
+        }
+
+        with open(zipPath, "rb") as f:
+            files = {
+                "zip": (fileName, f, "application/zip")  # Pode ser application/zip ou application/x-zip-compressed
+            }
+
+
+            print(files, headers)
+
+            response = requests.post("{}{}".format(url,videoId), files=files, headers=headers)
 
         print(response.status_code)
+        print(response.text)
 
         #deletando o zip que foi criado
         print("Deletando o zip")
+        time.sleep(2)
         os.remove(zipPath)
 
 if __name__ == "__main__":
