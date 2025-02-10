@@ -21,7 +21,11 @@ class videoIntegrations(videoExternalInterface):
         # videoId = requests.get(f'videoId')
         #baixar o video
         
-        video = requests.get("{}{}".format(URL_TO_GET_VIDEO,videoId)) #localhost:8080/video/s3-url/67a6aee8b6df012130001fe1
+        request = requests.get("{}{}".format(URL_TO_GET_VIDEO,videoId)) #localhost:8080/video/s3-url/67a6aee8b6df012130001fe1
+        
+        videoURL = request.json()
+
+        video = requests.get(videoURL["s3Url"]) #localhost:8080/video/s3-url/67a6aee8b6df012130001fe1
 
         videoName = "frames" #Verificar se vou conseguir o nome do arquivo
         #salvar o video 

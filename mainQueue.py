@@ -49,7 +49,7 @@ def receive_and_delete_message():
         receipt_handle = message['ReceiptHandle']
         print(f"Recebendo mensagem: {message['Body']}")
 
-        url = json.loads(message['Body'])['message']['url_video']
+        videoId = json.loads(message['Body'])['message']['id_video']
 
         sqs.delete_message(
             QueueUrl=QUEUE_URL,
@@ -58,14 +58,14 @@ def receive_and_delete_message():
  
         print("Mensagem deletada.")
 
-        zipPath = getZip(url)
+        zipPath = getZip(videoId)
 
         print("Segue o zip!", zipPath)
 
         url = URL_TO_SEND_ZIP
         print("Enviando zip para o endpoint", url)
-        files = {"file": open(zipPath, "rb")}
-        response = requests.post(url, files=files)
+        files = {"zip": open(zipPath, "rb")}
+        response = requests.post("{}/{}".format(url,videoId), files=files)
 
         print(response.status_code)
 
