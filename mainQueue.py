@@ -81,7 +81,7 @@ def receive_and_delete_message():
         headers = {
             "accept": "application/json",
             "USER": "abc@server.com",
-             "Authorization Basic": VIDEO_API_AUTH_TOKEN
+             "Authorization": "Basic "+VIDEO_API_AUTH_TOKEN
         }
         
         with open(zipPath, "rb") as f:

@@ -21,7 +21,7 @@ class videoIntegrations(videoExternalInterface):
         #requisitar url para baixar o vdieo, de uma api externa
         # videoId = requests.get(f'videoId')
         #baixar o video
-        header = { "Authorization Basic": VIDEO_API_AUTH_TOKEN}
+        header = { "Authorization": "Basic "+VIDEO_API_AUTH_TOKEN}
         request = requests.get("{}{}".format(URL_TO_GET_VIDEO,videoId), headers=header) #localhost:8080/video/s3-url/67a6aee8b6df012130001fe1
         
         videoURL = request.json()
